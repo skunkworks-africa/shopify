@@ -1,0 +1,104 @@
+/* Skunkworks Africa Shopify — canonical dark-mode palette for Horizon. */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --color-background: var(--swa-dark-bg);
+    --color-background-rgb: 7 11 26;
+    --color-foreground: var(--swa-dark-text);
+    --color-foreground-rgb: 242 246 251;
+    --color-border: var(--swa-dark-border);
+    --color-border-rgb: 45 58 81;
+
+    --color-primary-button-background: var(--swa-blue);
+    --color-primary-button-text: var(--swa-white);
+    --color-primary-button-border: var(--swa-blue);
+    --color-primary-button-focus-outline: var(--swa-orange);
+    --color-primary-button-hover-background: #155bb7;
+    --color-primary-button-hover-text: var(--swa-white);
+    --color-primary-button-hover-border: #155bb7;
+
+    --color-secondary-button-background: transparent;
+    --color-secondary-button-text: var(--swa-dark-text);
+    --color-secondary-button-border: var(--swa-dark-border);
+    --color-secondary-button-hover-background: var(--swa-dark-panel);
+    --color-secondary-button-hover-text: var(--swa-white);
+    --color-secondary-button-hover-border: var(--swa-steel);
+
+    --color-input-background: var(--swa-dark-panel);
+    --color-input-text: var(--swa-dark-text);
+    --color-input-text-rgb: 242 246 251;
+    --color-input-border: var(--swa-dark-border);
+
+    --color-variant-background: var(--swa-dark-panel);
+    --color-variant-border: var(--swa-dark-border);
+    --color-variant-text: var(--swa-dark-text);
+    --color-variant-text-rgb: 242 246 251;
+    --color-selected-variant-background: var(--swa-blue);
+    --color-selected-variant-border: var(--swa-blue);
+    --color-selected-variant-text: var(--swa-white);
+  }
+
+  body,
+  dialog {
+    background-color: var(--swa-dark-bg);
+    color: var(--swa-dark-text);
+  }
+
+  #header-group .header-section,
+  #header-group .header,
+  header-component {
+    background-color: rgb(7 11 26 / 0.96);
+    color: var(--swa-dark-text);
+    border-bottom-color: var(--swa-dark-border);
+  }
+
+  .section-background,
+  .product-grid__item,
+  .product-card,
+  .collection-card,
+  .predictive-search-results__card,
+  .dialog-modal,
+  .dialog-drawer,
+  .drawer,
+  .drawer__inner,
+  .search-modal,
+  .cart-drawer,
+  .predictive-search {
+    background-color: var(--swa-dark-panel);
+    color: var(--swa-dark-text);
+    border-color: var(--swa-dark-border);
+  }
+
+  .product-grid__item,
+  .product-card,
+  .collection-card,
+  .predictive-search-results__card {
+    box-shadow: 0 12px 32px rgb(0 0 0 / 0.3);
+  }
+
+  .rte blockquote,
+  hr,
+  .divider {
+    border-color: var(--swa-dark-border);
+  }
+
+  #footer-group,
+  #footer-group .shopify-section,
+  #footer-group .section-background {
+    background-color: var(--swa-ink);
+    color: var(--swa-dark-text);
+  }
+
+  .swa-surface,
+  .swa-panel {
+    background: var(--swa-dark-panel);
+    color: var(--swa-dark-text);
+    border-color: var(--swa-dark-border);
+  }
+
+  .swa-kicker {
+    color: #8ebcff;
+  }
+}
