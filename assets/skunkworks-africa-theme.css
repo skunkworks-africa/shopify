@@ -1,0 +1,292 @@
+/*
+ * Skunkworks Africa Shopify — Horizon commerce adapter
+ * Canonical brand source: Skunkworks design system
+ * Scope: storefront presentation only; preserve Horizon commerce behaviour.
+ */
+
+:root {
+  --swa-ink: #03033a;
+  --swa-blue: #1e6bd0;
+  --swa-orange: #f24208;
+  --swa-white: #ffffff;
+  --swa-off-white: #f7f9fc;
+  --swa-graphite: #15171a;
+  --swa-steel: #d8dee8;
+  --swa-slate: #5a6472;
+  --swa-success: #12805c;
+  --swa-warning: #c87900;
+  --swa-danger: #b42318;
+  --swa-info: #185adb;
+  --swa-dark-bg: #070b1a;
+  --swa-dark-panel: #101a30;
+  --swa-dark-border: #2d3a51;
+  --swa-dark-text: #f2f6fb;
+  --swa-radius-sm: 0.5rem;
+  --swa-radius-md: 0.8rem;
+  --swa-radius-lg: 1.15rem;
+  --swa-radius-pill: 999px;
+  --swa-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.08);
+  --swa-shadow-md: 0 4px 12px rgba(16, 24, 40, 0.12);
+  --swa-shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.16);
+  --swa-focus-ring: 0 0 0 3px rgba(242, 66, 8, 0.28);
+}
+
+html {
+  accent-color: var(--swa-blue);
+}
+
+::selection {
+  color: var(--swa-white);
+  background: var(--swa-blue);
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  text-wrap: balance;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--swa-orange);
+  outline-offset: 3px;
+}
+
+/* Brand signature: navy → blue → signal orange without changing header height. */
+#header-group {
+  position: relative;
+  isolation: isolate;
+}
+
+#header-group::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    var(--swa-ink) 0 38%,
+    var(--swa-blue) 38% 78%,
+    var(--swa-orange) 78% 100%
+  );
+}
+
+#header-group .header-section,
+#header-group .header,
+header-component {
+  border-bottom-color: rgb(var(--color-foreground-rgb) / 0.12);
+}
+
+@supports (backdrop-filter: blur(12px)) {
+  body:has(.header[transparent]) #header-group .header {
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Commerce controls inherit Horizon palette values but use Skunkworks shape/rhythm. */
+.button,
+.button-secondary,
+.button-custom,
+button.shopify-payment-button__button--unbranded {
+  min-height: 46px;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+}
+
+.button:not([disabled], [aria-disabled='true']),
+.button-secondary:not([disabled], [aria-disabled='true']),
+.button-custom:not([disabled], [aria-disabled='true']) {
+  transition:
+    color var(--animation-speed) var(--animation-easing),
+    background-color var(--animation-speed) var(--animation-easing),
+    border-color var(--animation-speed) var(--animation-easing),
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+@media (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .button:not([disabled], [aria-disabled='true']):hover,
+  .button-secondary:not([disabled], [aria-disabled='true']):hover,
+  .button-custom:not([disabled], [aria-disabled='true']):hover {
+    transform: translateY(-1px);
+    box-shadow: var(--swa-shadow-md);
+  }
+}
+
+/* Product and collection surfaces. */
+.product-grid__item,
+.product-card,
+.collection-card,
+.predictive-search-results__card--product,
+.predictive-search-results__card {
+  border-radius: var(--swa-radius-lg);
+}
+
+.product-grid__item {
+  overflow: clip;
+  background: var(--color-background);
+  box-shadow: var(--swa-shadow-sm);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.card-gallery,
+.collection-card__image,
+.product-card__image {
+  border-radius: calc(var(--swa-radius-lg) - 1px);
+  overflow: clip;
+}
+
+@media (any-pointer: fine) {
+  .product-grid__item:hover,
+  .product-card:hover,
+  .collection-card:hover,
+  .predictive-search-results__card:hover {
+    box-shadow: var(--swa-shadow-lg);
+  }
+}
+
+/* Form controls and variant selectors. */
+.field__input,
+.quantity-selector,
+.variant-option__button-label,
+select,
+textarea,
+input:not([type='checkbox'], [type='radio']) {
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.field__input:focus,
+select:focus-visible,
+textarea:focus-visible,
+input:not([type='checkbox'], [type='radio']):focus-visible {
+  box-shadow: var(--swa-focus-ring);
+}
+
+.variant-option__button-label:has(:checked) {
+  font-weight: 700;
+}
+
+/* Signal styling: orange is an accent, not white-on-orange body text. */
+.badge,
+.pills__pill {
+  border-radius: var(--swa-radius-pill);
+}
+
+.badge:where([class*='sale'], [data-badge='sale']) {
+  color: var(--swa-ink);
+  background: var(--swa-orange);
+}
+
+/* Editorial content. */
+.rte blockquote {
+  border-inline-start-width: 3px;
+  border-inline-start-color: var(--swa-orange);
+}
+
+.rte table,
+.cart-items,
+.totals {
+  border-color: var(--swa-steel);
+}
+
+/* Drawers/popovers keep Horizon behaviour while gaining a stronger surface hierarchy. */
+.dialog-modal,
+.dialog-drawer,
+.predictive-search-results,
+cart-drawer,
+theme-drawer {
+  box-shadow: var(--swa-shadow-lg);
+}
+
+/* Footer publisher band. */
+#footer-group,
+#footer-group .shopify-section,
+#footer-group .section-background {
+  background-color: var(--swa-ink);
+}
+
+#footer-group {
+  color: var(--swa-white);
+}
+
+#footer-group :is(h1, h2, h3, h4, h5, h6, p, li, label, small, strong, a) {
+  color: inherit;
+}
+
+#footer-group a {
+  text-decoration-color: rgb(255 255 255 / 0.48);
+}
+
+#footer-group a:hover {
+  text-decoration-color: currentcolor;
+}
+
+#footer-group .field__input,
+#footer-group input:not([type='checkbox'], [type='radio']),
+#footer-group select,
+#footer-group textarea {
+  color: var(--swa-white);
+  background: rgb(255 255 255 / 0.08);
+  border-color: rgb(255 255 255 / 0.34);
+}
+
+/* Utility classes for merchant-authored sections. */
+.swa-surface {
+  background: var(--swa-off-white);
+  color: var(--swa-ink);
+}
+
+.swa-panel {
+  border: 1px solid var(--swa-steel);
+  border-radius: var(--swa-radius-lg);
+  background: var(--swa-white);
+  box-shadow: var(--swa-shadow-md);
+}
+
+.swa-accent-rule {
+  width: min(7rem, 28vw);
+  height: 4px;
+  border: 0;
+  border-radius: var(--swa-radius-pill);
+  background: linear-gradient(90deg, var(--swa-blue), var(--swa-orange));
+}
+
+.swa-kicker {
+  color: var(--swa-blue);
+  font-family: var(--font-subheading--family, var(--font-paragraph--family));
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
