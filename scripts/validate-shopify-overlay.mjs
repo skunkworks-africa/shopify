@@ -7,6 +7,8 @@ const files = {
   css: 'assets/skunkworks-landing.css',
   search: 'assets/skunkworks-search.js',
   header: 'sections/header.liquid',
+  headerLogo: 'blocks/_header-logo.liquid',
+  settingsData: 'config/settings_data.json',
   index: 'templates/index.json',
   searchTemplate: 'templates/search.json'
 };
@@ -43,6 +45,9 @@ assert.match(source.css, /--swa-orange:\s*#f24208/i);
 const h1Count = (source.landing.match(/<h1\b/g) || []).length;
 assert.equal(h1Count, 1, 'Landing section must render one H1');
 assert.doesNotMatch(source.header, /<h1 class="visually-hidden">{{ shop\.name }}<\/h1>/, 'Header must not add a second homepage H1');
+assert.match(source.headerLogo, /href="https:\/\/skunkworks\.africa\/"/, 'Global header logo must link to the corporate homepage');
+assert.doesNotMatch(source.headerLogo, /href="https:\/\/www\.skunkworks\.africa\//, 'Header logo must avoid the redirecting www host');
+assert.match(source.settingsData, /"logo":\s*"shopify:\/\/shop_images\/shopify-logo\.png"/, 'Header must use the full company wordmark');
 
 console.log('Shopify overlay validation passed.');
 console.log('Validated JSON templates, Liquid contracts, predictive-search safety, accessibility hooks, and brand tokens.');

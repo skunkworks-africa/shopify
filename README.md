@@ -46,6 +46,7 @@ Tracked overlay files:
 - `sections/skunkworks-landing.liquid`
 - `sections/skunkworks-search-results.liquid`
 - `sections/header.liquid` (removes Horizon's duplicate hidden homepage H1)
+- `blocks/_header-logo.liquid` (routes the global logo to the corporate homepage)
 - `templates/index.json`
 - `templates/search.json`
 
