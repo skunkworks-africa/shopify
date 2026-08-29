@@ -1,25 +1,25 @@
 (() => {
   const menuButton = document.querySelector('[data-menu-toggle]');
-  const sidebar = document.querySelector('[data-sidebar]');
+  const mobileNav = document.querySelector('[data-mobile-nav]');
   const searchInput = document.querySelector('[data-card-search]');
   const cards = [...document.querySelectorAll('[data-card]')];
   const emptyState = document.querySelector('[data-empty-state]');
   const themeLabel = document.querySelector('[data-theme-label]');
   const year = document.querySelector('[data-year]');
-  const navLinks = [...document.querySelectorAll('.site-nav .nav-link[href^="#"]')];
+  const navLinks = [...document.querySelectorAll('.top-nav a[href^="#"]')];
   const desktopQuery = window.matchMedia('(min-width: 821px)');
   const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
   const closeMenu = () => {
-    if (!sidebar || !menuButton) return;
-    sidebar.classList.remove('is-open');
+    if (!mobileNav || !menuButton) return;
+    mobileNav.classList.remove('is-open');
     document.body.classList.remove('menu-open');
     menuButton.setAttribute('aria-expanded', 'false');
   };
 
   const toggleMenu = () => {
-    if (!sidebar || !menuButton) return;
-    const isOpen = sidebar.classList.toggle('is-open');
+    if (!mobileNav || !menuButton) return;
+    const isOpen = mobileNav.classList.toggle('is-open');
     document.body.classList.toggle('menu-open', isOpen);
     menuButton.setAttribute('aria-expanded', String(isOpen));
   };
@@ -39,8 +39,8 @@
   const updateThemeLabel = () => {
     if (!themeLabel) return;
     themeLabel.textContent = darkQuery.matches
-      ? 'Dark · black canvas / white foreground'
-      : 'Light · white canvas / black foreground';
+      ? 'Dark mode · black canvas / white foreground'
+      : 'Light mode · white canvas / black foreground';
   };
 
   updateThemeLabel();

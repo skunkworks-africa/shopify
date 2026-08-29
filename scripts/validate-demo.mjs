@@ -13,12 +13,20 @@ requireText(html, 'meta name="color-scheme" content="light dark"', 'HTML must ad
 requireText(html, 'prefers-color-scheme: light', 'HTML must provide a light browser theme-color.');
 requireText(html, 'prefers-color-scheme: dark', 'HTML must provide a dark browser theme-color.');
 requireText(html, 'class="skip-link"', 'HTML must keep the skip-to-content link.');
+requireText(html, 'class="site-header"', 'HTML must include the global top header.');
+requireText(html, 'class="top-nav"', 'HTML must include top navigation.');
+requireText(html, 'class="site-footer"', 'HTML must include the full site footer.');
 requireText(css, '--bg: #ffffff;', 'Light mode must use a white canvas token.');
 requireText(css, '--fg: #000000;', 'Light mode must use a black foreground token.');
 requireText(css, '@media (prefers-color-scheme: dark)', 'CSS must respond to the browser dark preference.');
 requireText(css, ':focus-visible', 'CSS must retain visible keyboard focus styles.');
 requireText(css, '@media (prefers-reduced-motion: reduce)', 'CSS must respect reduced-motion preferences.');
 requireText(js, 'prefers-color-scheme: dark', 'JavaScript theme status must use the browser preference, not a manual toggle.');
+requireText(js, '[data-mobile-nav]', 'Mobile navigation must be handled by the top header navigation.');
+
+if (html.includes('class="sidebar"') || html.includes('data-sidebar') || css.includes('.sidebar')) {
+  failures.push('Left sidebar navigation must not be present in the demo.');
+}
 
 const hexValues = [...css.matchAll(/#[0-9a-fA-F]{3,8}\b/g)].map((match) => match[0].toLowerCase());
 const allowedHex = new Set(['#fff', '#ffffff', '#000', '#000000']);
@@ -32,4 +40,5 @@ if (failures.length) {
 }
 
 console.log('Adaptive monochrome demo validation passed.');
+console.log('Global top navigation and full footer are present; left sidebar navigation is absent.');
 console.log(`Checked ${hexValues.length} explicit hex color references; all are black or white.`);
