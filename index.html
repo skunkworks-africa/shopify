@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <meta name="description" content="Skunkworks Africa adaptive monochrome commerce theme demo aligned to the Skunkworks Academy design system.">
+  <title>Skunkworks Africa | Adaptive Commerce Theme Demo</title>
+  <link rel="stylesheet" href="./demo.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="mobile-header">
+    <a class="brand brand--mobile" href="#top" aria-label="Skunkworks Africa home">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="1" y="1" width="46" height="46" rx="12" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M13 14h22M13 24h16M13 34h22" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <span><strong>Skunkworks</strong><small>Africa</small></span>
+    </a>
+    <button class="icon-button" type="button" data-menu-toggle aria-controls="sidebar" aria-expanded="false">
+      <span class="sr-only">Toggle navigation</span>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="app-shell" id="top">
+    <aside class="sidebar" id="sidebar" data-sidebar>
+      <div class="sidebar-inner">
+        <a class="brand" href="#top" aria-label="Skunkworks Africa home">
+          <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="1" y="1" width="46" height="46" rx="12" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M13 14h22M13 24h16M13 34h22" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <span><strong>Skunkworks</strong><small>Africa</small></span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <div class="nav-group">
+            <p class="nav-label">Overview</p>
+            <a class="nav-link is-active" href="#overview">Theme demo</a>
+            <a class="nav-link" href="#commerce">Commerce</a>
+            <a class="nav-link" href="#system">Design system</a>
+          </div>
+          <div class="nav-group">
+            <p class="nav-label">Services</p>
+            <a class="nav-link" href="#capabilities">Cloud &amp; infrastructure</a>
+            <a class="nav-link" href="#capabilities">AI &amp; automation</a>
+            <a class="nav-link" href="#capabilities">Security</a>
+            <a class="nav-link" href="#capabilities">Training</a>
+          </div>
+          <div class="nav-group">
+            <p class="nav-label">Ecosystem</p>
+            <a class="nav-link" href="https://www.skunkworksacademy.com/">Skunkworks Academy</a>
+            <a class="nav-link" href="https://github.com/skunkworks-africa/shopify">GitHub repository</a>
+            <a class="nav-link" href="https://shopify.skunkworks.africa/">Shopify demo</a>
+          </div>
+        </nav>
+
+        <div class="theme-status" aria-live="polite">
+          <span class="status-dot" aria-hidden="true"></span>
+          <div>
+            <strong>Browser theme</strong>
+            <span data-theme-label>Detecting…</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main id="main-content" class="main-content">
+      <section class="hero" id="overview" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Skunkworks Africa commerce system</p>
+          <h1 id="hero-title">One design language. Two colours. Automatic inversion.</h1>
+          <p class="hero-lead">A black-and-white storefront system aligned to Skunkworks Academy: structured navigation, clear hierarchy, strong cards, responsive layouts and browser-native light/dark adaptation.</p>
+          <div class="button-row">
+            <a class="button button--primary" href="#commerce">Explore commerce demo</a>
+            <a class="button button--secondary" href="#system">Inspect design system</a>
+          </div>
+        </div>
+        <div class="hero-metrics" aria-label="Theme characteristics">
+          <div><strong>2</strong><span>Core colours</span></div>
+          <div><strong>AA+</strong><span>Contrast target</span></div>
+          <div><strong>0</strong><span>Manual theme toggles</span></div>
+        </div>
+      </section>
+
+      <section class="section section--intro" id="capabilities" aria-labelledby="capabilities-title">
+        <div class="section-heading">
+          <p class="eyebrow">Africa capability map</p>
+          <h2 id="capabilities-title">Built around practical technology outcomes.</h2>
+          <p>Cards, density, information hierarchy and route-first interactions mirror the Academy gateway pattern while the visual palette remains deliberately monochrome.</p>
+        </div>
+
+        <label class="search-field" for="capability-search">
+          <span>Filter capability cards</span>
+          <div class="search-control">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            <input id="capability-search" type="search" placeholder="Search cloud, AI, security, training…" autocomplete="off" data-card-search>
+          </div>
+        </label>
+
+        <div class="card-grid" data-card-grid>
+          <article class="route-card" data-card data-search="cloud infrastructure managed cloud devops multi cloud">
+            <p class="card-index">01</p>
+            <h3>Cloud &amp; Infrastructure</h3>
+            <p>Architecture, platform engineering, migration, managed services and production operations across modern cloud environments.</p>
+            <a href="#commerce">Explore capability <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="route-card" data-card data-search="ai artificial intelligence automation agents analytics integration">
+            <p class="card-index">02</p>
+            <h3>AI &amp; Automation</h3>
+            <p>AI-enabled workflows, agentic systems, analytics and integration patterns designed for measurable business outcomes.</p>
+            <a href="#commerce">Explore capability <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="route-card" data-card data-search="security zero trust cybersecurity governance compliance">
+            <p class="card-index">03</p>
+            <h3>Security</h3>
+            <p>Zero-trust architecture, security engineering, governance and resilient operating controls for distributed environments.</p>
+            <a href="#commerce">Explore capability <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="route-card" data-card data-search="training academy education learning certification skills">
+            <p class="card-index">04</p>
+            <h3>Technology Training</h3>
+            <p>Role-based skills development, certification pathways and practical labs delivered through the Skunkworks Academy ecosystem.</p>
+            <a href="https://www.skunkworksacademy.com/">Open Academy <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="route-card" data-card data-search="commerce ecommerce shopify catalog marketplace products">
+            <p class="card-index">05</p>
+            <h3>Digital Commerce</h3>
+            <p>Catalogues, storefronts, integrations, payment flows and marketplace operations with consistent analytics and governance.</p>
+            <a href="#commerce">View storefront demo <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="route-card" data-card data-search="integration api middleware voip communications systems">
+            <p class="card-index">06</p>
+            <h3>Systems Integration</h3>
+            <p>API, middleware, communications and enterprise integration services connecting platforms without fragmenting operations.</p>
+            <a href="#commerce">Explore capability <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+        <p class="empty-state" data-empty-state hidden>No capability cards match that search.</p>
+      </section>
+
+      <section class="section section--band" id="commerce" aria-labelledby="commerce-title">
+        <div class="section-heading">
+          <p class="eyebrow">Commerce components</p>
+          <h2 id="commerce-title">Storefront patterns without introducing a third colour.</h2>
+          <p>Primary actions always use the foreground colour against the page background. Dark mode reverses the same relationship automatically.</p>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="product-media product-media--a" aria-hidden="true"><span>SW</span></div>
+            <div class="product-body">
+              <p class="product-meta">Managed service</p>
+              <h3>Cloud Operations Foundation</h3>
+              <p>Production-ready cloud operating model, governance baseline and implementation support.</p>
+              <div class="product-footer">
+                <strong>From R 24,900</strong>
+                <button class="button button--compact button--primary" type="button">View service</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-media product-media--b" aria-hidden="true"><span>AI</span></div>
+            <div class="product-body">
+              <p class="product-meta">Automation package</p>
+              <h3>AI Workflow Accelerator</h3>
+              <p>Discovery, workflow design and an implementation sprint for secure AI-enabled automation.</p>
+              <div class="product-footer">
+                <strong>From R 18,500</strong>
+                <button class="button button--compact button--primary" type="button">View service</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-media product-media--c" aria-hidden="true"><span>ED</span></div>
+            <div class="product-body">
+              <p class="product-meta">Learning pathway</p>
+              <h3>Enterprise Skills Programme</h3>
+              <p>Structured Academy pathway combining self-paced learning, labs and instructor-supported capability building.</p>
+              <div class="product-footer">
+                <strong>Custom quote</strong>
+                <button class="button button--compact button--primary" type="button">View programme</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="system" aria-labelledby="system-title">
+        <div class="section-heading">
+          <p class="eyebrow">Design-system reference</p>
+          <h2 id="system-title">The browser controls the palette. The components keep their hierarchy.</h2>
+        </div>
+
+        <div class="system-grid">
+          <article class="system-panel">
+            <p class="panel-label">Colour contract</p>
+            <div class="swatch-list">
+              <div class="swatch-row"><span class="swatch swatch--background"></span><div><strong>Canvas</strong><code>--bg</code></div></div>
+              <div class="swatch-row"><span class="swatch swatch--foreground"></span><div><strong>Foreground</strong><code>--fg</code></div></div>
+            </div>
+            <p class="panel-note">Light: white canvas / black foreground. Dark: black canvas / white foreground. Borders and muted text are opacity derivatives of the same foreground colour.</p>
+          </article>
+
+          <article class="system-panel">
+            <p class="panel-label">Controls</p>
+            <div class="control-stack">
+              <button class="button button--primary" type="button">Primary action</button>
+              <button class="button button--secondary" type="button">Secondary action</button>
+              <label class="field-demo">Email address<input type="email" placeholder="name@example.com"></label>
+            </div>
+          </article>
+
+          <article class="system-panel system-panel--wide">
+            <p class="panel-label">Typography hierarchy</p>
+            <div class="type-specimen">
+              <p class="type-display">Dream. Design. Deliver.</p>
+              <h3>Technology capability should feel structured before it feels complicated.</h3>
+              <p>Body copy uses a neutral sans-serif stack with generous line-height, strong information grouping and intentionally constrained reading width.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta-band" aria-labelledby="cta-title">
+        <div>
+          <p class="eyebrow">Theme acceptance target</p>
+          <h2 id="cta-title">One monochrome system across Africa and Academy properties.</h2>
+        </div>
+        <a class="button button--inverse" href="https://github.com/skunkworks-africa/shopify">View source repository</a>
+      </section>
+
+      <footer class="site-footer">
+        <div>
+          <strong>Skunkworks Africa</strong>
+          <p>Technology solutions, training and AI-driven services.</p>
+        </div>
+        <div class="footer-meta">
+          <span>Adaptive monochrome demo</span>
+          <span>© <span data-year></span> Skunkworks</span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="./demo.js" defer></script>
+</body>
+</html>
