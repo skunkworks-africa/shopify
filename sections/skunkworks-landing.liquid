@@ -47,6 +47,21 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <section class="swa-search-discovery" aria-labelledby="swa-search-heading-{{ section.id }}">
+    <div class="swa-shell swa-search-discovery__inner">
+      <div class="swa-search-discovery__intro">
+        {%- if section.settings.search_eyebrow != blank -%}
+          <p class="swa-eyebrow">{{ section.settings.search_eyebrow | escape }}</p>
+        {%- endif -%}
+        <h2 id="swa-search-heading-{{ section.id }}">{{ section.settings.search_heading | escape }}</h2>
+        {%- if section.settings.search_text != blank -%}
+          <p>{{ section.settings.search_text | escape }}</p>
+        {%- endif -%}
+      </div>
+
       <div class="swa-search" data-skunkworks-search>
         <form class="swa-search__form" action="{{ routes.search_url }}" method="get" role="search" data-swa-search-form>
           <label for="swa-search-{{ section.id }}">{{ section.settings.search_label | escape }}</label>
@@ -65,6 +80,16 @@
               aria-controls="swa-predictive-{{ section.id }}"
               data-swa-search-input
             >
+            <button
+              type="button"
+              class="swa-search__clear"
+              aria-label="Clear search input"
+              title="Clear search input"
+              hidden
+              data-swa-search-clear
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
             <input type="hidden" name="type" value="product,page,article">
             <button type="submit" class="swa-search__submit">Search</button>
           </div>
@@ -77,6 +102,27 @@
           data-swa-predictive
         ></div>
         <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-swa-search-live></p>
+
+        {%- assign suggestion_blocks = section.blocks | where: 'type', 'search_suggestion' -%}
+        {%- if suggestion_blocks.size > 0 -%}
+          <nav class="swa-search-suggestions" aria-label="Suggested searches">
+            <span>{{ section.settings.suggestions_label | escape }}</span>
+            <div class="swa-search-suggestions__links">
+              {%- for block in suggestion_blocks -%}
+                {%- if block.settings.query != blank -%}
+                  <a
+                    href="{{ routes.search_url }}?q={{ block.settings.query | url_encode }}&amp;type=product%2Cpage%2Carticle"
+                    data-swa-event="suggested_search_selected"
+                    {{ block.shopify_attributes }}
+                  >
+                    {{ block.settings.label | default: block.settings.query | escape }}
+                    <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path d="M15 14.3 10.7 10a5.5 5.5 0 1 0-.7.7l4.3 4.3.7-.7ZM2 6.5A4.5 4.5 0 1 1 6.5 11 4.5 4.5 0 0 1 2 6.5Z" fill="currentColor"/></svg>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </nav>
+        {%- endif -%}
       </div>
     </div>
   </section>
@@ -241,8 +287,12 @@
     { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Talk to Skunkworks" },
     { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
     { "type": "header", "content": "Search" },
+    { "type": "text", "id": "search_eyebrow", "label": "Search eyebrow", "default": "Search the full storefront" },
+    { "type": "text", "id": "search_heading", "label": "Search heading", "default": "Find the technology and training you're looking for" },
+    { "type": "textarea", "id": "search_text", "label": "Search description", "default": "Search products, training, software, cloud services and support content across the Skunkworks storefront." },
     { "type": "text", "id": "search_label", "label": "Accessible search label", "default": "Search the complete Skunkworks storefront" },
-    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search products, courses, software, cloud and services" },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "What would you like to learn today?" },
+    { "type": "text", "id": "suggestions_label", "label": "Suggested searches label", "default": "Suggested:" },
     { "type": "header", "content": "Categories" },
     { "type": "text", "id": "categories_eyebrow", "label": "Eyebrow", "default": "Explore the catalogue" },
     { "type": "text", "id": "categories_heading", "label": "Heading", "default": "Shop by category" },
@@ -270,6 +320,14 @@
     { "type": "text", "id": "newsletter_consent", "label": "Consent text", "default": "By subscribing, you agree to receive Skunkworks Africa updates. You can unsubscribe at any time." }
   ],
   "blocks": [
+    {
+      "type": "search_suggestion",
+      "name": "Suggested search",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "query", "label": "Search query" }
+      ]
+    },
     {
       "type": "category",
       "name": "Category",

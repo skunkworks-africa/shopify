@@ -3,6 +3,11 @@
     "skunkworks_landing": {
       "type": "skunkworks-landing",
       "blocks": {
+        "suggestion_maximo": { "type": "search_suggestion", "settings": { "label": "Maximo", "query": "Maximo" } },
+        "suggestion_zos": { "type": "search_suggestion", "settings": { "label": "z/OS", "query": "z/OS" } },
+        "suggestion_terraform": { "type": "search_suggestion", "settings": { "label": "Terraform", "query": "Terraform" } },
+        "suggestion_apptio": { "type": "search_suggestion", "settings": { "label": "Apptio", "query": "Apptio" } },
+        "suggestion_watsonx": { "type": "search_suggestion", "settings": { "label": "watsonx", "query": "watsonx" } },
         "category_microsoft": { "type": "category", "settings": { "collection": "microsoft-licenses", "kicker": "Licensing" } },
         "category_software": { "type": "category", "settings": { "collection": "software", "kicker": "Business technology" } },
         "category_security": { "type": "category", "settings": { "collection": "cybersecurity-solutions", "kicker": "Protect operations" } },
@@ -16,7 +21,7 @@
         "trust_secure": { "type": "trust", "settings": { "icon": "◇", "heading": "Secure checkout", "text": "Use Shopify's protected storefront, cart and checkout experience." } },
         "trust_support": { "type": "trust", "settings": { "icon": "↗", "heading": "Practical support", "text": "Connect with Skunkworks for licensing, delivery, implementation and training guidance." } }
       },
-      "block_order": ["category_microsoft", "category_software", "category_security", "category_ai", "category_hardware", "category_training", "pathway_cloud", "pathway_security", "pathway_training", "trust_genuine", "trust_secure", "trust_support"],
+      "block_order": ["suggestion_maximo", "suggestion_zos", "suggestion_terraform", "suggestion_apptio", "suggestion_watsonx", "category_microsoft", "category_software", "category_security", "category_ai", "category_hardware", "category_training", "pathway_cloud", "pathway_security", "pathway_training", "trust_genuine", "trust_secure", "trust_support"],
       "settings": {
         "eyebrow": "Technology commerce for modern teams",
         "heading": "Technology. Simplified.",
@@ -26,7 +31,11 @@
         "secondary_label": "Talk to Skunkworks",
         "secondary_link": "shopify://pages/contact",
         "search_label": "Search the complete Skunkworks storefront",
-        "search_placeholder": "Search products, courses, software, cloud and services",
+        "search_eyebrow": "Search the full storefront",
+        "search_heading": "Find the technology and training you're looking for",
+        "search_text": "Search products, training, software, cloud services and support content across the Skunkworks storefront.",
+        "search_placeholder": "What would you like to learn today?",
+        "suggestions_label": "Suggested:",
         "categories_eyebrow": "Explore the catalogue",
         "categories_heading": "Shop by category",
         "categories_link_label": "View all collections",

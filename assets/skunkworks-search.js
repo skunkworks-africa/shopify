@@ -3,6 +3,7 @@
     root: '[data-skunkworks-search]',
     form: '[data-swa-search-form]',
     input: '[data-swa-search-input]',
+    clear: '[data-swa-search-clear]',
     results: '[data-swa-predictive]',
     live: '[data-swa-search-live]'
   };
@@ -47,6 +48,7 @@
   const init = (root) => {
     const form = root.querySelector(SELECTORS.form);
     const input = root.querySelector(SELECTORS.input);
+    const clear = root.querySelector(SELECTORS.clear);
     const panel = root.querySelector(SELECTORS.results);
     const live = root.querySelector(SELECTORS.live);
     if (!form || !input || !panel || !live) return;
@@ -63,6 +65,10 @@
       input.removeAttribute('aria-activedescendant');
       activeIndex = -1;
       options = [];
+    };
+
+    const syncClear = () => {
+      if (clear) clear.hidden = input.value.length === 0;
     };
 
     const activate = (index) => {
@@ -135,6 +141,7 @@
 
     input.addEventListener('focus', () => emit('search_opened'));
     input.addEventListener('input', () => {
+      syncClear();
       window.clearTimeout(timer);
       const query = input.value.trim();
       if (query.length < 2) {
@@ -143,6 +150,13 @@
         return;
       }
       timer = window.setTimeout(() => search(query), 220);
+    });
+
+    clear?.addEventListener('click', () => {
+      input.value = '';
+      syncClear();
+      close();
+      input.focus();
     });
 
     input.addEventListener('keydown', (event) => {
@@ -168,6 +182,7 @@
     });
     form.addEventListener('submit', () => emit('search_submitted', { query_length: input.value.trim().length }));
     document.addEventListener('pointerdown', (event) => { if (!root.contains(event.target)) close(); });
+    syncClear();
   };
 
   const enhanceHeaderSearch = () => {
