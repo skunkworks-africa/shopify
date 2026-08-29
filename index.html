@@ -7,6 +7,9 @@
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
   <meta name="description" content="Skunkworks Africa adaptive monochrome commerce theme demo aligned to the Skunkworks Academy design system.">
+  <link rel="icon" type="image/png" media="(prefers-color-scheme: light)" href="./assets/favicon-black.png">
+  <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="./assets/favicon-black.png">
+  <link rel="shortcut icon" href="./assets/favicon-black.ico">
   <title>Skunkworks Africa | Adaptive Commerce Theme Demo</title>
   <link rel="stylesheet" href="./demo.css">
 </head>
@@ -16,10 +19,10 @@
   <header class="site-header" aria-label="Global header">
     <div class="site-header__inner">
       <a class="brand brand--header" href="#top" aria-label="Skunkworks Africa home">
-        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
-          <rect x="1" y="1" width="46" height="46" rx="12" fill="none" stroke="currentColor" stroke-width="2"/>
-          <path d="M13 14h22M13 24h16M13 34h22" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-        </svg>
+        <picture aria-hidden="true">
+          <source media="(prefers-color-scheme: dark)" srcset="./assets/logo-white.svg">
+          <img class="brand-mark" src="./assets/logo-black.svg" width="42" height="42" alt="">
+        </picture>
         <span><strong>Skunkworks</strong><small>Africa</small></span>
       </a>
 
@@ -122,7 +125,10 @@
       <div class="footer-main">
         <div class="footer-brand">
           <a class="brand" href="#top" aria-label="Skunkworks Africa home">
-            <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 14h22M13 24h16M13 34h22" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+            <picture aria-hidden="true">
+              <source media="(prefers-color-scheme: dark)" srcset="./assets/logo-white.svg">
+              <img class="brand-mark" src="./assets/logo-black.svg" width="42" height="42" alt="">
+            </picture>
             <span><strong>Skunkworks</strong><small>Africa</small></span>
           </a>
           <p>Technology solutions, commerce, AI, cloud and practical skills development across Africa.</p>
