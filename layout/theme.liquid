@@ -6,6 +6,9 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#070b1a" media="(prefers-color-scheme: dark)">
  {%- capture ecom_header_content -%}{%- render 'ecom_header' -%}{%- endcapture -%}{%- unless ecom_header_content contains 'Liquid error' -%}{{ ecom_header_content }}{%- endunless -%}
     {%- if settings.favicon != blank -%}
       <link

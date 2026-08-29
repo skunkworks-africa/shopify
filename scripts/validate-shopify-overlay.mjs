@@ -6,8 +6,10 @@ const files = {
   results: 'sections/skunkworks-search-results.liquid',
   css: 'assets/skunkworks-landing.css',
   search: 'assets/skunkworks-search.js',
+  darkTheme: 'assets/skunkworks-africa-dark.css',
   header: 'sections/header.liquid',
   headerLogo: 'blocks/_header-logo.liquid',
+  layout: 'layout/theme.liquid',
   settingsData: 'config/settings_data.json',
   index: 'templates/index.json',
   searchTemplate: 'templates/search.json'
@@ -38,6 +40,11 @@ assert.match(source.search, /aria-activedescendant/);
 assert.match(source.search, /event\.key === 'Escape'/);
 assert.doesNotMatch(source.search, /\.innerHTML\s*=/, 'Predictive search must not inject HTML');
 assert.match(source.css, /prefers-reduced-motion/);
+assert.match(source.css, /@media \(prefers-color-scheme: dark\)/);
+assert.match(source.darkTheme, /@media \(prefers-color-scheme: dark\)/);
+assert.match(source.layout, /<meta name="color-scheme" content="light dark">/);
+assert.match(source.layout, /<meta name="theme-color" content="#070b1a" media="\(prefers-color-scheme: dark\)">/);
+assert.match(source.layout, /skunkworks-africa-dark\.css[^\n]+prefers-color-scheme: dark/);
 assert.match(source.css, /--swa-ink:\s*#03033a/i);
 assert.match(source.css, /--swa-blue:\s*#1e6bd0/i);
 assert.match(source.css, /--swa-orange:\s*#f24208/i);
