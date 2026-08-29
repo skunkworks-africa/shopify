@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "skunkworks_search": {
+      "type": "skunkworks-search-results",
+      "settings": {
+        "eyebrow": "Store-wide discovery",
+        "heading": "Search the Skunkworks storefront",
+        "label": "Search products, pages and articles",
+        "placeholder": "Search products, courses, software, cloud and services",
+        "results_label": "results for",
+        "results_per_page": 24,
+        "read_label": "Read more",
+        "pagination_label": "Search result pages",
+        "zero_heading": "No matching results",
+        "zero_text": "Check the spelling, try a broader term, or browse the complete catalogue.",
+        "zero_button": "Browse all products"
+      }
+    }
+  },
+  "order": ["skunkworks_search"]
+}

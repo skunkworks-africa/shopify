@@ -1,0 +1,100 @@
+{{ 'skunkworks-landing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'skunkworks-search.js' | asset_url }}" defer="defer"></script>
+
+<section class="swa-search-page swa-shell" aria-labelledby="swa-search-page-title-{{ section.id }}">
+  <header class="swa-search-page__header">
+    <p class="swa-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    <h1 id="swa-search-page-title-{{ section.id }}">
+      {%- if search.performed -%}
+        Search results
+      {%- else -%}
+        {{ section.settings.heading | escape }}
+      {%- endif -%}
+    </h1>
+    <div class="swa-search" data-skunkworks-search>
+      <form class="swa-search__form" action="{{ routes.search_url }}" method="get" role="search" data-swa-search-form>
+        <label for="swa-search-page-input-{{ section.id }}">{{ section.settings.label | escape }}</label>
+        <div class="swa-search__control">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="swa-search-page-input-{{ section.id }}" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.placeholder | escape }}" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="swa-search-page-predictive-{{ section.id }}" data-swa-search-input>
+          <input type="hidden" name="type" value="product,page,article">
+          <button type="submit" class="swa-search__submit">Search</button>
+        </div>
+      </form>
+      <div id="swa-search-page-predictive-{{ section.id }}" class="swa-predictive" role="listbox" hidden data-swa-predictive></div>
+      <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-swa-search-live></p>
+    </div>
+  </header>
+
+  {%- if search.performed -%}
+    <div class="swa-search-page__summary" role="status">
+      <p>{{ search.results_count }} {{ section.settings.results_label | escape }} “{{ search.terms | escape }}”</p>
+    </div>
+    {%- paginate search.results by section.settings.results_per_page -%}
+      {%- if search.results_count > 0 -%}
+        <div class="swa-results-grid" id="swa-search-results">
+          {%- for result in search.results -%}
+            <article class="swa-result-card swa-result-card--{{ result.object_type }}">
+              {%- if result.object_type == 'product' -%}
+                <a class="swa-result-card__media" href="{{ result.url }}" data-swa-event="product_selected">
+                  {%- if result.featured_image != blank -%}
+                    {{ result.featured_image | image_url: width: 720 | image_tag: widths: '240, 360, 540, 720', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy', alt: result.featured_image.alt | default: result.title }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'swa-placeholder' }}
+                  {%- endif -%}
+                </a>
+                <div class="swa-result-card__body">
+                  <p class="swa-result-card__type">Product</p>
+                  {%- if result.vendor != blank -%}<p class="swa-product-card__vendor">{{ result.vendor | escape }}</p>{%- endif -%}
+                  <h2><a href="{{ result.url }}" data-swa-event="product_selected">{{ result.title | escape }}</a></h2>
+                  <p class="swa-price">{{ result.price | money_with_currency }}</p>
+                  {%- unless result.available -%}<p class="swa-status">Unavailable</p>{%- endunless -%}
+                </div>
+              {%- else -%}
+                <div class="swa-result-card__body">
+                  <p class="swa-result-card__type">{{ result.object_type | capitalize }}</p>
+                  <h2><a href="{{ result.url }}">{{ result.title | escape }}</a></h2>
+                  {%- if result.content != blank -%}<p>{{ result.content | strip_html | truncatewords: 28 | escape }}</p>{%- endif -%}
+                  <a class="swa-text-link" href="{{ result.url }}">{{ section.settings.read_label | escape }}</a>
+                </div>
+              {%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="swa-pagination" aria-label="{{ section.settings.pagination_label | escape }}">
+            {{ paginate | default_pagination }}
+          </nav>
+        {%- endif -%}
+      {%- else -%}
+        <div class="swa-zero-results">
+          <h2>{{ section.settings.zero_heading | escape }}</h2>
+          <p>{{ section.settings.zero_text | escape }}</p>
+          <a class="swa-button swa-button--primary" href="{{ routes.all_products_collection_url }}">{{ section.settings.zero_button | escape }}</a>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Skunkworks search results",
+  "tag": "section",
+  "class": "section-skunkworks-search-results",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Store-wide discovery" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Search the Skunkworks storefront" },
+    { "type": "text", "id": "label", "label": "Accessible search label", "default": "Search products, pages and articles" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Search products, courses, software, cloud and services" },
+    { "type": "text", "id": "results_label", "label": "Results label", "default": "results for" },
+    { "type": "range", "id": "results_per_page", "label": "Results per page", "min": 12, "max": 48, "step": 4, "default": 24 },
+    { "type": "text", "id": "read_label", "label": "Content link label", "default": "Read more" },
+    { "type": "text", "id": "pagination_label", "label": "Pagination label", "default": "Search result pages" },
+    { "type": "text", "id": "zero_heading", "label": "Zero-results heading", "default": "No matching results" },
+    { "type": "textarea", "id": "zero_text", "label": "Zero-results text", "default": "Check the spelling, try a broader term, or browse the complete catalogue." },
+    { "type": "text", "id": "zero_button", "label": "Zero-results button", "default": "Browse all products" }
+  ],
+  "presets": [{ "name": "Skunkworks search results" }]
+}
+{% endschema %}

@@ -1,0 +1,54 @@
+{
+  "sections": {
+    "skunkworks_landing": {
+      "type": "skunkworks-landing",
+      "blocks": {
+        "category_microsoft": { "type": "category", "settings": { "collection": "microsoft-licenses", "kicker": "Licensing" } },
+        "category_software": { "type": "category", "settings": { "collection": "software", "kicker": "Business technology" } },
+        "category_security": { "type": "category", "settings": { "collection": "cybersecurity-solutions", "kicker": "Protect operations" } },
+        "category_ai": { "type": "category", "settings": { "collection": "ai-and-automation-solutions", "kicker": "Modernize work" } },
+        "category_hardware": { "type": "category", "settings": { "collection": "dell", "kicker": "Infrastructure" } },
+        "category_training": { "type": "category", "settings": { "collection": "comptia-certification-training", "kicker": "Build capability" } },
+        "pathway_cloud": { "type": "pathway", "settings": { "collection": "microsoft-licenses", "heading": "Microsoft cloud and licensing", "text": "Explore current Microsoft 365, Windows and cloud-product pathways from the live catalogue.", "link_label": "Explore Microsoft" } },
+        "pathway_security": { "type": "pathway", "settings": { "collection": "cybersecurity-solutions", "heading": "Cybersecurity solutions", "text": "Find security products and assessment-aligned solutions for modern organizations.", "link_label": "Explore cybersecurity" } },
+        "pathway_training": { "type": "pathway", "settings": { "collection": "comptia-certification-training", "heading": "Certification and training", "text": "Connect product procurement with current CompTIA certification and training options.", "link_label": "Explore training" } },
+        "trust_genuine": { "type": "trust", "settings": { "icon": "✓", "heading": "Genuine technology", "text": "Shop current software, hardware and service pathways from the live Skunkworks catalogue." } },
+        "trust_secure": { "type": "trust", "settings": { "icon": "◇", "heading": "Secure checkout", "text": "Use Shopify's protected storefront, cart and checkout experience." } },
+        "trust_support": { "type": "trust", "settings": { "icon": "↗", "heading": "Practical support", "text": "Connect with Skunkworks for licensing, delivery, implementation and training guidance." } }
+      },
+      "block_order": ["category_microsoft", "category_software", "category_security", "category_ai", "category_hardware", "category_training", "pathway_cloud", "pathway_security", "pathway_training", "trust_genuine", "trust_secure", "trust_support"],
+      "settings": {
+        "eyebrow": "Technology commerce for modern teams",
+        "heading": "Technology. Simplified.",
+        "text": "<p>Discover genuine software, cloud, cybersecurity, hardware and training solutions backed by practical Skunkworks support.</p>",
+        "primary_label": "Shop all solutions",
+        "primary_link": "shopify://collections/all",
+        "secondary_label": "Talk to Skunkworks",
+        "secondary_link": "shopify://pages/contact",
+        "search_label": "Search the complete Skunkworks storefront",
+        "search_placeholder": "Search products, courses, software, cloud and services",
+        "categories_eyebrow": "Explore the catalogue",
+        "categories_heading": "Shop by category",
+        "categories_link_label": "View all collections",
+        "categories_link": "shopify://collections",
+        "featured_collection": "microsoft-licenses",
+        "featured_eyebrow": "Live storefront data",
+        "featured_heading": "Featured Microsoft technology",
+        "products_to_show": 8,
+        "featured_link_label": "View Microsoft collection",
+        "featured_empty": "Select a populated collection in the theme editor.",
+        "pathways_eyebrow": "Capability pathways",
+        "pathways_heading": "Build the right technology stack",
+        "trust_heading": "Why buy from Skunkworks",
+        "show_newsletter": true,
+        "newsletter_eyebrow": "Technology intelligence",
+        "newsletter_heading": "Stay ahead of what changes next",
+        "newsletter_text": "Receive practical product, cloud, security and training updates from Skunkworks Africa.",
+        "newsletter_label": "Business email address",
+        "newsletter_button": "Subscribe",
+        "newsletter_consent": "By subscribing, you agree to receive Skunkworks Africa updates. You can unsubscribe at any time."
+      }
+    }
+  },
+  "order": ["skunkworks_landing"]
+}
