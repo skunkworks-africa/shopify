@@ -325,3 +325,149 @@ theme-drawer {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Canonical www.skunkworks.africa alignment (2026)
+ * Keep Horizon commerce behaviour; unify presentation with the corporate gateway.
+ */
+:root {
+  color-scheme: light dark;
+  --swa-bg: #ffffff;
+  --swa-fg: #000000;
+  --swa-muted: rgb(0 0 0 / 0.66);
+  --swa-line: rgb(0 0 0 / 0.16);
+  --swa-soft: rgb(0 0 0 / 0.05);
+  --swa-strong: rgb(0 0 0 / 0.34);
+  --swa-shell-bg: #000000;
+  --swa-shell-fg: #ffffff;
+  --swa-shell-muted: rgb(255 255 255 / 0.72);
+  --swa-shell-line: rgb(255 255 255 / 0.22);
+  --swa-shell-soft: rgb(255 255 255 / 0.10);
+  --swa-ink: #000000;
+  --swa-blue: #000000;
+  --swa-orange: #000000;
+  --swa-white: #ffffff;
+  --swa-off-white: #f7f7f7;
+  --swa-graphite: #000000;
+  --swa-steel: #d6d6d6;
+  --swa-slate: #666666;
+  --swa-radius-sm: 0.75rem;
+  --swa-radius-md: 0.75rem;
+  --swa-radius-lg: 1.25rem;
+  --swa-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
+  --swa-shadow-md: 0 10px 32px rgb(0 0 0 / 0.08);
+  --swa-shadow-lg: 0 20px 70px rgb(0 0 0 / 0.08);
+  --swa-focus-ring: 0 0 0 3px var(--swa-fg);
+}
+
+html,
+body {
+  background: var(--swa-bg);
+  color: var(--swa-fg);
+  font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline-color: currentcolor;
+  box-shadow: none;
+}
+
+#header-group::after {
+  height: 1px;
+  background: var(--swa-shell-line);
+}
+
+#header-group .header-section,
+#header-group .header,
+#header-group header-component {
+  background: var(--swa-shell-bg);
+  color: var(--swa-shell-fg);
+  border-bottom-color: var(--swa-shell-line);
+}
+
+#header-group :is(a, button, summary, svg, .header__icon) {
+  color: var(--swa-shell-fg);
+}
+
+#header-group :is(a, button, summary):hover {
+  background-color: var(--swa-shell-soft);
+}
+
+#header-group :focus-visible {
+  outline-color: var(--swa-shell-fg);
+}
+
+.hero {
+  background: var(--swa-bg);
+  color: var(--swa-fg);
+  border-bottom: 1px solid var(--swa-line);
+}
+
+.hero__container {
+  border-color: var(--swa-line);
+}
+
+.hero__content-wrapper {
+  font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.hero__content-wrapper :is(h1, h2, h3) {
+  letter-spacing: -0.052em;
+}
+
+.hero__content-wrapper h1,
+.hero__content-wrapper .h1 {
+  font-size: clamp(3.3rem, 7.2vw, 7rem);
+  line-height: 0.94;
+}
+
+.hero__content-wrapper :is(p, .rte) {
+  line-height: 1.6;
+}
+
+.hero__content-wrapper :is(.button, .button-secondary, .button-custom) {
+  min-height: 50px;
+  padding-inline: 20px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.hero__media-wrapper,
+.hero__media-grid picture,
+.hero__media-grid .hero__media {
+  border-radius: inherit;
+}
+
+.product-grid__item,
+.product-card,
+.collection-card,
+.predictive-search-results__card {
+  border: 1px solid var(--swa-line);
+  background: var(--swa-bg);
+}
+
+#footer-group,
+#footer-group .shopify-section,
+#footer-group .section-background {
+  background: var(--swa-shell-bg);
+  color: var(--swa-shell-fg);
+  border-color: var(--swa-shell-line);
+}
+
+#footer-group :is(p, li, label, small, a) {
+  color: var(--swa-shell-muted);
+}
+
+#footer-group :is(h1, h2, h3, h4, h5, h6, strong) {
+  color: var(--swa-shell-fg);
+}
+
+@media screen and (max-width: 749px) {
+  .hero__content-wrapper h1,
+  .hero__content-wrapper .h1 {
+    font-size: clamp(3rem, 15vw, 5.8rem);
+  }
+
+  .hero[data-mobile-full-width-buttons='true'] .hero__content-wrapper :is(.button, .button-secondary, .button-custom) {
+    width: 100%;
+  }
+}

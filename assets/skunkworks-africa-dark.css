@@ -1,57 +1,82 @@
-/* Skunkworks Africa Shopify — canonical dark-mode palette for Horizon. */
+/* Skunkworks Africa Shopify — canonical adaptive dark mode.
+ * Mirrors www.skunkworks.africa: dark page canvas with an inverted light shell.
+ */
 
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
+    --swa-bg: #000000;
+    --swa-fg: #ffffff;
+    --swa-muted: rgb(255 255 255 / 0.72);
+    --swa-line: rgb(255 255 255 / 0.18);
+    --swa-soft: rgb(255 255 255 / 0.07);
+    --swa-strong: rgb(255 255 255 / 0.38);
+    --swa-shell-bg: #ffffff;
+    --swa-shell-fg: #000000;
+    --swa-shell-muted: rgb(0 0 0 / 0.68);
+    --swa-shell-line: rgb(0 0 0 / 0.20);
+    --swa-shell-soft: rgb(0 0 0 / 0.08);
+    --swa-dark-bg: #000000;
+    --swa-dark-panel: #0f0f0f;
+    --swa-dark-border: #2e2e2e;
+    --swa-dark-text: #ffffff;
+    --swa-shadow-sm: 0 1px 2px rgb(255 255 255 / 0.03);
+    --swa-shadow-md: 0 10px 32px rgb(255 255 255 / 0.035);
+    --swa-shadow-lg: 0 20px 70px rgb(255 255 255 / 0.04);
 
-    --color-background: var(--swa-dark-bg);
-    --color-background-rgb: 7 11 26;
-    --color-foreground: var(--swa-dark-text);
-    --color-foreground-rgb: 242 246 251;
-    --color-border: var(--swa-dark-border);
-    --color-border-rgb: 45 58 81;
+    --color-background: #000000;
+    --color-background-rgb: 0 0 0;
+    --color-foreground: #ffffff;
+    --color-foreground-rgb: 255 255 255;
+    --color-border: #2e2e2e;
+    --color-border-rgb: 46 46 46;
 
-    --color-primary-button-background: var(--swa-blue);
-    --color-primary-button-text: var(--swa-white);
-    --color-primary-button-border: var(--swa-blue);
-    --color-primary-button-focus-outline: var(--swa-orange);
-    --color-primary-button-hover-background: #155bb7;
-    --color-primary-button-hover-text: var(--swa-white);
-    --color-primary-button-hover-border: #155bb7;
+    --color-primary-button-background: #ffffff;
+    --color-primary-button-text: #000000;
+    --color-primary-button-border: #ffffff;
+    --color-primary-button-focus-outline: #ffffff;
+    --color-primary-button-hover-background: #e8e8e8;
+    --color-primary-button-hover-text: #000000;
+    --color-primary-button-hover-border: #e8e8e8;
 
     --color-secondary-button-background: transparent;
-    --color-secondary-button-text: var(--swa-dark-text);
-    --color-secondary-button-border: var(--swa-dark-border);
-    --color-secondary-button-hover-background: var(--swa-dark-panel);
-    --color-secondary-button-hover-text: var(--swa-white);
-    --color-secondary-button-hover-border: var(--swa-steel);
+    --color-secondary-button-text: #ffffff;
+    --color-secondary-button-border: #ffffff;
+    --color-secondary-button-hover-background: #ffffff;
+    --color-secondary-button-hover-text: #000000;
+    --color-secondary-button-hover-border: #ffffff;
 
-    --color-input-background: var(--swa-dark-panel);
-    --color-input-text: var(--swa-dark-text);
-    --color-input-text-rgb: 242 246 251;
-    --color-input-border: var(--swa-dark-border);
+    --color-input-background: #0f0f0f;
+    --color-input-text: #ffffff;
+    --color-input-text-rgb: 255 255 255;
+    --color-input-border: #2e2e2e;
 
-    --color-variant-background: var(--swa-dark-panel);
-    --color-variant-border: var(--swa-dark-border);
-    --color-variant-text: var(--swa-dark-text);
-    --color-variant-text-rgb: 242 246 251;
-    --color-selected-variant-background: var(--swa-blue);
-    --color-selected-variant-border: var(--swa-blue);
-    --color-selected-variant-text: var(--swa-white);
+    --color-variant-background: #0f0f0f;
+    --color-variant-border: #2e2e2e;
+    --color-variant-text: #ffffff;
+    --color-variant-text-rgb: 255 255 255;
+    --color-selected-variant-background: #ffffff;
+    --color-selected-variant-border: #ffffff;
+    --color-selected-variant-text: #000000;
   }
 
   body,
-  dialog {
-    background-color: var(--swa-dark-bg);
-    color: var(--swa-dark-text);
+  dialog,
+  .hero {
+    background: var(--swa-bg);
+    color: var(--swa-fg);
   }
 
   #header-group .header-section,
   #header-group .header,
-  header-component {
-    background-color: rgb(7 11 26 / 0.96);
-    color: var(--swa-dark-text);
-    border-bottom-color: var(--swa-dark-border);
+  #header-group header-component {
+    background: var(--swa-shell-bg);
+    color: var(--swa-shell-fg);
+    border-bottom-color: var(--swa-shell-line);
+  }
+
+  #header-group :is(a, button, summary, svg, .header__icon) {
+    color: var(--swa-shell-fg);
   }
 
   .section-background,
@@ -71,34 +96,19 @@
     border-color: var(--swa-dark-border);
   }
 
-  .product-grid__item,
-  .product-card,
-  .collection-card,
-  .predictive-search-results__card {
-    box-shadow: 0 12px 32px rgb(0 0 0 / 0.3);
-  }
-
-  .rte blockquote,
-  hr,
-  .divider {
-    border-color: var(--swa-dark-border);
-  }
-
   #footer-group,
   #footer-group .shopify-section,
   #footer-group .section-background {
-    background-color: var(--swa-ink);
-    color: var(--swa-dark-text);
+    background: var(--swa-shell-bg);
+    color: var(--swa-shell-fg);
+    border-color: var(--swa-shell-line);
   }
 
-  .swa-surface,
-  .swa-panel {
-    background: var(--swa-dark-panel);
-    color: var(--swa-dark-text);
-    border-color: var(--swa-dark-border);
+  #footer-group :is(p, li, label, small, a) {
+    color: var(--swa-shell-muted);
   }
 
-  .swa-kicker {
-    color: #8ebcff;
+  #footer-group :is(h1, h2, h3, h4, h5, h6, strong) {
+    color: var(--swa-shell-fg);
   }
 }
