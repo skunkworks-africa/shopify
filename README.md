@@ -42,6 +42,7 @@ Tracked overlay files:
 - `assets/skunkworks-search.js`
 - `config/settings_data.json`
 - `layout/theme.liquid`
+- `blocks/text.liquid`
 - `sections/skunkworks-landing.liquid`
 - `sections/skunkworks-search-results.liquid`
 - `sections/header.liquid` (removes Horizon's duplicate hidden homepage H1)
@@ -53,7 +54,9 @@ The repository is intentionally an overlay, not a complete Horizon checkout. Run
 `scripts/validate-shopify-overlay.mjs` for repository-level validation and run
 Shopify Theme Check against the complete unpublished Horizon theme before publication.
 
-The hero implementation remains compatible with Horizon's image/video slots, custom mobile media, responsive heights, overlays, blurred reflection, section links, block layouts, entrance motion, and reduced-motion fallback. Styling is applied through the adapter CSS so the upstream section can continue to receive Shopify updates.
+The hero implementation remains compatible with Horizon's image/video slots, custom mobile media, responsive heights, overlays, blurred reflection, section links, block layouts, entrance motion, and reduced-motion fallback. Styling uses Shopify's semantic `--color-*` variables so Theme Editor scheme changes remain live and upstream Horizon sections can continue to receive updates.
+
+Text blocks inherit the parent section/group scheme by default. Merchants may opt into a block-specific Shopify colour scheme or a fixed background. Adaptive backgrounds use a tint of `--color-foreground-rgb`, preserving contrast in light, dark, and custom schemes.
 
 ## Deployment policy
 
