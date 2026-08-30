@@ -21,8 +21,8 @@
   data-swa-theme="{{ landing_theme_mode }}"
 >
   <section class="swa-hero" aria-labelledby="swa-hero-title-{{ section.id }}">
-    {%- if section.settings.hero_image != blank -%}
-      <div class="swa-hero__media" aria-hidden="true">
+    <div class="swa-hero__media" aria-hidden="true">
+      {%- if section.settings.hero_image != blank -%}
         {{
           section.settings.hero_image
           | image_url: width: 2400
@@ -31,10 +31,22 @@
             sizes: '100vw',
             loading: 'eager',
             fetchpriority: 'high',
+            alt: '',
             class: 'swa-hero__image'
         }}
-      </div>
-    {%- endif -%}
+      {%- else -%}
+        <img
+          src="{{ 'skunkworks-consulting-hero.webp' | asset_url }}"
+          alt=""
+          width="1672"
+          height="941"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="swa-hero__image"
+        >
+      {%- endif -%}
+    </div>
     <div class="swa-shell swa-hero__inner">
       <div class="swa-hero__copy">
         {%- if section.settings.eyebrow != blank -%}
@@ -311,7 +323,7 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Technology commerce for modern teams" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Technology. Simplified." },
     { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Discover genuine software, cloud, cybersecurity, hardware and training solutions backed by practical Skunkworks support.</p>" },
-    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "image_picker", "id": "hero_image", "label": "Custom hero image", "info": "Optional. Leave empty to use the premium Skunkworks consulting hero included with the theme." },
     { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop solutions" },
     { "type": "url", "id": "primary_link", "label": "Primary button link" },
     { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Talk to Skunkworks" },
