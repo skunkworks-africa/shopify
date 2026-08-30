@@ -1,0 +1,28 @@
+name: Validate Shopify theme overlay
+
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Validate existing demonstration
+        run: node scripts/validate-demo.mjs
+      - name: Validate Shopify landing and search overlay
+        run: node scripts/validate-shopify-overlay.mjs
+      - name: Validate JavaScript syntax
+        run: node --check assets/skunkworks-search.js
+      - name: Validate JSON templates
+        run: jq empty templates/index.json templates/search.json

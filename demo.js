@@ -1,4 +1,15 @@
 (() => {
+  const installAdaptiveShell = () => {
+    if (document.querySelector('link[data-adaptive-shell]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = './adaptive-shell.css';
+    link.dataset.adaptiveShell = '';
+    document.head.append(link);
+  };
+
+  installAdaptiveShell();
+
   const menuButton = document.querySelector('[data-menu-toggle]');
   const mobileNav = document.querySelector('[data-mobile-nav]');
   const searchInput = document.querySelector('[data-card-search]');
@@ -39,8 +50,8 @@
   const updateThemeLabel = () => {
     if (!themeLabel) return;
     themeLabel.textContent = darkQuery.matches
-      ? 'Dark mode · black canvas / white foreground'
-      : 'Light mode · white canvas / black foreground';
+      ? 'Dark mode · black page / white inverse header and footer'
+      : 'Light mode · white page / black inverse header and footer';
   };
 
   updateThemeLabel();

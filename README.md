@@ -2,45 +2,58 @@
 
 Source-controlled Skunkworks Africa commerce layer for Shopify Horizon.
 
-## Brand contract
+## Canonical design contract
 
-| Role | Token | Value |
+The visual source of truth is [skunkworks-africa/www](https://github.com/skunkworks-africa/www). The Shopify overlay follows the same adaptive monochrome system.
+
+| Role | Light mode | Dark mode |
 | --- | --- | --- |
-| Ink / primary text | `--swa-ink` | `#03033A` |
-| Primary interaction | `--swa-blue` | `#1E6BD0` |
-| Signal / focus accent | `--swa-orange` | `#F24208` |
-| Canvas | `--swa-white` | `#FFFFFF` |
-| Secondary surface | `--swa-off-white` | `#F7F9FC` |
-| Graphite | `--swa-graphite` | `#15171A` |
-| Border / steel | `--swa-steel` | `#D8DEE8` |
-| Muted / slate | `--swa-slate` | `#5A6472` |
-
-Dark surfaces use `#070B1A`, `#101A30`, `#2D3A51`, and `#F2F6FB` from the canonical Skunkworks design system.
+| Page canvas | `#FFFFFF` | `#000000` |
+| Page text | `#000000` | `#FFFFFF` |
+| Muted text | `rgb(0 0 0 / 66%)` | `rgb(255 255 255 / 72%)` |
+| Divider | `rgb(0 0 0 / 16%)` | `rgb(255 255 255 / 18%)` |
+| Header/footer shell | `#000000` | `#FFFFFF` |
+| Shell text | `#FFFFFF` | `#000000` |
+| Radius | `12px–20px` | `12px–20px` |
 
 ## Typography
 
-- Body: Open Sans
-- Display/headings: Inter
-- Controls: inherit the body font
+- Body, headings, controls: Inter with Segoe UI/Roboto/system fallbacks
+- Display headings: tightly tracked, balanced, responsive
+- Body copy: 1.6 line-height and readable measure
 
 ## Accessibility contract
 
-- Skunk Blue on white and white on Skunk Blue meet WCAG AA for normal text.
-- Signal Orange is not paired with white normal-sized text because that combination is below 4.5:1.
-- Signal Orange is used for focus, status, and brand accents; Ink Navy is used when normal text sits on orange.
-- Focus-visible states use a 3px Signal Orange ring.
+- Black/white foreground pairs provide maximum contrast.
+- Keyboard focus uses a visible 3px current-color outline.
+- Hero media and content remain visible without JavaScript.
 - `prefers-reduced-motion` is respected.
+- Theme Editor media, overlay, mobile art direction, and block controls remain upstream Horizon responsibilities.
 
 ## Architecture
 
-This repository tracks the Skunkworks-specific files layered on top of Shopify Horizon rather than vendoring upstream Horizon wholesale. The Shopify unpublished Horizon copy remains the integration target and source of upstream theme files.
+This repository tracks Skunkworks-specific files layered on top of Shopify Horizon rather than vendoring upstream Horizon wholesale. The Shopify unpublished Horizon copy remains the integration target and source of upstream theme files.
 
 Tracked overlay files:
 
 - `assets/skunkworks-africa-theme.css`
 - `assets/skunkworks-africa-dark.css`
+- `assets/skunkworks-landing.css`
+- `assets/skunkworks-search.js`
 - `config/settings_data.json`
 - `layout/theme.liquid`
+- `sections/skunkworks-landing.liquid`
+- `sections/skunkworks-search-results.liquid`
+- `sections/header.liquid` (removes Horizon's duplicate hidden homepage H1)
+- `blocks/_header-logo.liquid` (routes the global logo to the corporate homepage)
+- `templates/index.json`
+- `templates/search.json`
+
+The repository is intentionally an overlay, not a complete Horizon checkout. Run
+`scripts/validate-shopify-overlay.mjs` for repository-level validation and run
+Shopify Theme Check against the complete unpublished Horizon theme before publication.
+
+The hero implementation remains compatible with Horizon's image/video slots, custom mobile media, responsive heights, overlays, blurred reflection, section links, block layouts, entrance motion, and reduced-motion fallback. Styling is applied through the adapter CSS so the upstream section can continue to receive Shopify updates.
 
 ## Deployment policy
 

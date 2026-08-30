@@ -1,0 +1,362 @@
+{{ 'skunkworks-landing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'skunkworks-search.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign category_blocks = section.blocks | where: 'type', 'category'
+  assign pathway_blocks = section.blocks | where: 'type', 'pathway'
+  assign trust_blocks = section.blocks | where: 'type', 'trust'
+  assign featured_collection = section.settings.featured_collection
+-%}
+
+<div class="swa-landing" data-section-id="{{ section.id }}">
+  <section class="swa-hero" aria-labelledby="swa-hero-title-{{ section.id }}">
+    {%- if section.settings.hero_image != blank -%}
+      <div class="swa-hero__media" aria-hidden="true">
+        {{
+          section.settings.hero_image
+          | image_url: width: 2400
+          | image_tag:
+            widths: '750, 1100, 1500, 2000, 2400',
+            sizes: '100vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            class: 'swa-hero__image'
+        }}
+      </div>
+    {%- endif -%}
+    <div class="swa-shell swa-hero__inner">
+      <div class="swa-hero__copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="swa-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        <h1 id="swa-hero-title-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
+        {%- if section.settings.text != blank -%}
+          <div class="swa-hero__text rte">{{ section.settings.text }}</div>
+        {%- endif -%}
+        <div class="swa-actions">
+          {%- if section.settings.primary_label != blank and section.settings.primary_link != blank -%}
+            <a class="swa-button swa-button--primary" href="{{ section.settings.primary_link }}" data-swa-event="hero_cta_selected">
+              {{ section.settings.primary_label | escape }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank and section.settings.secondary_link != blank -%}
+            <a class="swa-button swa-button--secondary" href="{{ section.settings.secondary_link }}" data-swa-event="hero_cta_selected">
+              {{ section.settings.secondary_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="swa-search-discovery" aria-labelledby="swa-search-heading-{{ section.id }}">
+    <div class="swa-shell swa-search-discovery__inner">
+      <div class="swa-search-discovery__intro">
+        {%- if section.settings.search_eyebrow != blank -%}
+          <p class="swa-eyebrow">{{ section.settings.search_eyebrow | escape }}</p>
+        {%- endif -%}
+        <h2 id="swa-search-heading-{{ section.id }}">{{ section.settings.search_heading | escape }}</h2>
+        {%- if section.settings.search_text != blank -%}
+          <p>{{ section.settings.search_text | escape }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="swa-search" data-skunkworks-search>
+        <form class="swa-search__form" action="{{ routes.search_url }}" method="get" role="search" data-swa-search-form>
+          <label for="swa-search-{{ section.id }}">{{ section.settings.search_label | escape }}</label>
+          <div class="swa-search__control">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input
+              id="swa-search-{{ section.id }}"
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              placeholder="{{ section.settings.search_placeholder | escape }}"
+              autocomplete="off"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-controls="swa-predictive-{{ section.id }}"
+              data-swa-search-input
+            >
+            <button
+              type="button"
+              class="swa-search__clear"
+              aria-label="Clear search input"
+              title="Clear search input"
+              hidden
+              data-swa-search-clear
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <input type="hidden" name="type" value="product,page,article">
+            <button type="submit" class="swa-search__submit">Search</button>
+          </div>
+        </form>
+        <div
+          id="swa-predictive-{{ section.id }}"
+          class="swa-predictive"
+          role="listbox"
+          hidden
+          data-swa-predictive
+        ></div>
+        <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-swa-search-live></p>
+
+        {%- assign suggestion_blocks = section.blocks | where: 'type', 'search_suggestion' -%}
+        {%- if suggestion_blocks.size > 0 -%}
+          <nav class="swa-search-suggestions" aria-label="Suggested searches">
+            <span>{{ section.settings.suggestions_label | escape }}</span>
+            <div class="swa-search-suggestions__links">
+              {%- for block in suggestion_blocks -%}
+                {%- if block.settings.query != blank -%}
+                  <a
+                    href="{{ routes.search_url }}?q={{ block.settings.query | url_encode }}&amp;type=product%2Cpage%2Carticle"
+                    data-swa-event="suggested_search_selected"
+                    {{ block.shopify_attributes }}
+                  >
+                    {{ block.settings.label | default: block.settings.query | escape }}
+                    <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path d="M15 14.3 10.7 10a5.5 5.5 0 1 0-.7.7l4.3 4.3.7-.7ZM2 6.5A4.5 4.5 0 1 1 6.5 11 4.5 4.5 0 0 1 2 6.5Z" fill="currentColor"/></svg>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </nav>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- if category_blocks.size > 0 -%}
+    <section class="swa-section swa-shell" aria-labelledby="swa-categories-{{ section.id }}">
+      <div class="swa-section__heading">
+        <div>
+          <p class="swa-eyebrow">{{ section.settings.categories_eyebrow | escape }}</p>
+          <h2 id="swa-categories-{{ section.id }}">{{ section.settings.categories_heading | escape }}</h2>
+        </div>
+        {%- if section.settings.categories_link != blank -%}
+          <a class="swa-text-link" href="{{ section.settings.categories_link }}">{{ section.settings.categories_link_label | escape }}</a>
+        {%- endif -%}
+      </div>
+      <div class="swa-category-grid">
+        {%- for block in category_blocks -%}
+          {%- assign collection = block.settings.collection -%}
+          {%- if collection != blank -%}
+            <a class="swa-category-card" href="{{ collection.url }}" {{ block.shopify_attributes }} data-swa-event="collection_selected">
+              <div class="swa-category-card__media">
+                {%- if collection.image != blank -%}
+                  {{ collection.image | image_url: width: 720 | image_tag: widths: '240, 360, 540, 720', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy', alt: collection.image.alt | default: collection.title }}
+                {%- else -%}
+                  <span aria-hidden="true">{{ collection.title | slice: 0, 1 | escape }}</span>
+                {%- endif -%}
+              </div>
+              <div class="swa-category-card__body">
+                {%- if block.settings.kicker != blank -%}<p>{{ block.settings.kicker | escape }}</p>{%- endif -%}
+                <h3>{{ collection.title | escape }}</h3>
+                <span>{{ collection.products_count }} products</span>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if featured_collection != blank -%}
+    <section class="swa-section swa-section--surface" aria-labelledby="swa-featured-{{ section.id }}">
+      <div class="swa-shell">
+        <div class="swa-section__heading">
+          <div>
+            <p class="swa-eyebrow">{{ section.settings.featured_eyebrow | escape }}</p>
+            <h2 id="swa-featured-{{ section.id }}">{{ section.settings.featured_heading | escape }}</h2>
+          </div>
+          <a class="swa-text-link" href="{{ featured_collection.url }}" data-swa-event="collection_selected">{{ section.settings.featured_link_label | escape }}</a>
+        </div>
+        <div class="swa-product-grid">
+          {%- for product in featured_collection.products limit: section.settings.products_to_show -%}
+            <article class="swa-product-card">
+              <a class="swa-product-card__media" href="{{ product.url }}" data-swa-event="product_selected" aria-label="{{ product.title | escape }}">
+                {%- if product.featured_image != blank -%}
+                  {{ product.featured_image | image_url: width: 800 | image_tag: widths: '240, 360, 540, 800', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy', alt: product.featured_image.alt | default: product.title }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'swa-placeholder' }}
+                {%- endif -%}
+              </a>
+              <div class="swa-product-card__body">
+                {%- if product.vendor != blank -%}<p class="swa-product-card__vendor">{{ product.vendor | escape }}</p>{%- endif -%}
+                <h3><a href="{{ product.url }}" data-swa-event="product_selected">{{ product.title | escape }}</a></h3>
+                <div class="swa-product-card__meta">
+                  <span class="swa-price">
+                    {%- if product.compare_at_price_max > product.price -%}
+                      <span class="visually-hidden">Sale price</span>
+                    {%- endif -%}
+                    {{ product.price | money_with_currency }}
+                  </span>
+                  {%- unless product.available -%}<span class="swa-status">Unavailable</span>{%- endunless -%}
+                </div>
+              </div>
+            </article>
+          {%- else -%}
+            <p class="swa-empty">{{ section.settings.featured_empty | escape }}</p>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if pathway_blocks.size > 0 -%}
+    <section class="swa-section swa-shell" aria-labelledby="swa-pathways-{{ section.id }}">
+      <div class="swa-section__heading">
+        <div>
+          <p class="swa-eyebrow">{{ section.settings.pathways_eyebrow | escape }}</p>
+          <h2 id="swa-pathways-{{ section.id }}">{{ section.settings.pathways_heading | escape }}</h2>
+        </div>
+      </div>
+      <div class="swa-pathway-grid">
+        {%- for block in pathway_blocks -%}
+          {%- liquid
+            assign pathway_url = block.settings.link
+            assign pathway_title = block.settings.heading
+            if block.settings.collection != blank
+              assign pathway_url = block.settings.collection.url
+              if pathway_title == blank
+                assign pathway_title = block.settings.collection.title
+              endif
+            endif
+          -%}
+          {%- if pathway_url != blank and pathway_title != blank -%}
+            <article class="swa-pathway" {{ block.shopify_attributes }}>
+              <p class="swa-pathway__index">0{{ forloop.index }}</p>
+              <h3>{{ pathway_title | escape }}</h3>
+              {%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}
+              <a class="swa-text-link" href="{{ pathway_url }}">{{ block.settings.link_label | escape }}</a>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if trust_blocks.size > 0 -%}
+    <section class="swa-trust" aria-labelledby="swa-trust-{{ section.id }}">
+      <div class="swa-shell">
+        <h2 id="swa-trust-{{ section.id }}" class="visually-hidden">{{ section.settings.trust_heading | escape }}</h2>
+        <div class="swa-trust__grid">
+          {%- for block in trust_blocks -%}
+            <article {{ block.shopify_attributes }}>
+              <span class="swa-trust__icon" aria-hidden="true">{{ block.settings.icon | escape }}</span>
+              <div><h3>{{ block.settings.heading | escape }}</h3><p>{{ block.settings.text | escape }}</p></div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.settings.show_newsletter -%}
+    <section class="swa-newsletter" aria-labelledby="swa-newsletter-{{ section.id }}">
+      <div class="swa-shell swa-newsletter__inner">
+        <div><p class="swa-eyebrow">{{ section.settings.newsletter_eyebrow | escape }}</p><h2 id="swa-newsletter-{{ section.id }}">{{ section.settings.newsletter_heading | escape }}</h2><p>{{ section.settings.newsletter_text | escape }}</p></div>
+        {%- form 'customer', class: 'swa-newsletter__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label for="swa-newsletter-email-{{ section.id }}">{{ section.settings.newsletter_label | escape }}</label>
+          <div><input id="swa-newsletter-email-{{ section.id }}" type="email" name="contact[email]" value="{{ form.email }}" autocomplete="email" required placeholder="name@company.com"><button class="swa-button swa-button--primary" type="submit">{{ section.settings.newsletter_button | escape }}</button></div>
+          {%- if form.posted_successfully? -%}<p class="swa-form-message swa-form-message--success" role="status">Thanks for subscribing.</p>{%- endif -%}
+          {%- if form.errors -%}<div class="swa-form-message swa-form-message--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+          <p class="swa-newsletter__consent">{{ section.settings.newsletter_consent | escape }}</p>
+        {%- endform -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Skunkworks landing page",
+  "tag": "section",
+  "class": "section-skunkworks-landing",
+  "max_blocks": 24,
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Technology commerce for modern teams" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Technology. Simplified." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Discover genuine software, cloud, cybersecurity, hardware and training solutions backed by practical Skunkworks support.</p>" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop solutions" },
+    { "type": "url", "id": "primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Talk to Skunkworks" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+    { "type": "header", "content": "Search" },
+    { "type": "text", "id": "search_eyebrow", "label": "Search eyebrow", "default": "Search the full storefront" },
+    { "type": "text", "id": "search_heading", "label": "Search heading", "default": "Find the technology and training you're looking for" },
+    { "type": "textarea", "id": "search_text", "label": "Search description", "default": "Search products, training, software, cloud services and support content across the Skunkworks storefront." },
+    { "type": "text", "id": "search_label", "label": "Accessible search label", "default": "Search the complete Skunkworks storefront" },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "What would you like to learn today?" },
+    { "type": "text", "id": "suggestions_label", "label": "Suggested searches label", "default": "Suggested:" },
+    { "type": "header", "content": "Categories" },
+    { "type": "text", "id": "categories_eyebrow", "label": "Eyebrow", "default": "Explore the catalogue" },
+    { "type": "text", "id": "categories_heading", "label": "Heading", "default": "Shop by category" },
+    { "type": "text", "id": "categories_link_label", "label": "Link label", "default": "View all collections" },
+    { "type": "url", "id": "categories_link", "label": "Link" },
+    { "type": "header", "content": "Featured products" },
+    { "type": "collection", "id": "featured_collection", "label": "Collection" },
+    { "type": "text", "id": "featured_eyebrow", "label": "Eyebrow", "default": "Live storefront data" },
+    { "type": "text", "id": "featured_heading", "label": "Heading", "default": "Featured technology" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 4, "max": 12, "step": 1, "default": 8 },
+    { "type": "text", "id": "featured_link_label", "label": "Link label", "default": "View collection" },
+    { "type": "text", "id": "featured_empty", "label": "Empty-state text", "default": "Select a populated collection in the theme editor." },
+    { "type": "header", "content": "Pathways" },
+    { "type": "text", "id": "pathways_eyebrow", "label": "Eyebrow", "default": "Capability pathways" },
+    { "type": "text", "id": "pathways_heading", "label": "Heading", "default": "Build the right technology stack" },
+    { "type": "header", "content": "Trust" },
+    { "type": "text", "id": "trust_heading", "label": "Accessible heading", "default": "Why buy from Skunkworks" },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter", "default": true },
+    { "type": "text", "id": "newsletter_eyebrow", "label": "Eyebrow", "default": "Technology intelligence" },
+    { "type": "text", "id": "newsletter_heading", "label": "Heading", "default": "Stay ahead of what changes next" },
+    { "type": "text", "id": "newsletter_text", "label": "Text", "default": "Receive practical product, cloud, security and training updates from Skunkworks Africa." },
+    { "type": "text", "id": "newsletter_label", "label": "Email label", "default": "Business email address" },
+    { "type": "text", "id": "newsletter_button", "label": "Button label", "default": "Subscribe" },
+    { "type": "text", "id": "newsletter_consent", "label": "Consent text", "default": "By subscribing, you agree to receive Skunkworks Africa updates. You can unsubscribe at any time." }
+  ],
+  "blocks": [
+    {
+      "type": "search_suggestion",
+      "name": "Suggested search",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "query", "label": "Search query" }
+      ]
+    },
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Explore" }
+      ]
+    },
+    {
+      "type": "pathway",
+      "name": "Pathway",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "heading", "label": "Custom heading" },
+        { "type": "textarea", "id": "text", "label": "Description" },
+        { "type": "url", "id": "link", "label": "Custom link" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Explore pathway" }
+      ]
+    },
+    {
+      "type": "trust",
+      "name": "Trust item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Short icon or symbol", "default": "✓" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Genuine technology" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Products and services sourced through current Skunkworks catalogue pathways." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Skunkworks landing page" }]
+}
+{% endschema %}
