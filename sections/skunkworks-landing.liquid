@@ -6,9 +6,20 @@
   assign pathway_blocks = section.blocks | where: 'type', 'pathway'
   assign trust_blocks = section.blocks | where: 'type', 'trust'
   assign featured_collection = section.settings.featured_collection
+  assign landing_theme_class = 'swa-landing--adaptive'
+  assign landing_theme_mode = 'adaptive'
+
+  if section.settings.theme_mode == 'shopify'
+    assign landing_theme_class = 'color-' | append: section.settings.color_scheme
+    assign landing_theme_mode = 'shopify'
+  endif
 -%}
 
-<div class="swa-landing" data-section-id="{{ section.id }}">
+<div
+  class="swa-landing {{ landing_theme_class }}"
+  data-section-id="{{ section.id }}"
+  data-swa-theme="{{ landing_theme_mode }}"
+>
   <section class="swa-hero" aria-labelledby="swa-hero-title-{{ section.id }}">
     {%- if section.settings.hero_image != blank -%}
       <div class="swa-hero__media" aria-hidden="true">
@@ -277,6 +288,25 @@
   "class": "section-skunkworks-landing",
   "max_blocks": 24,
   "settings": [
+    { "type": "header", "content": "Colour theme" },
+    {
+      "type": "select",
+      "id": "theme_mode",
+      "label": "Theme source",
+      "options": [
+        { "value": "adaptive", "label": "Follow visitor light/dark preference" },
+        { "value": "shopify", "label": "Use a Shopify colour scheme" }
+      ],
+      "default": "adaptive",
+      "info": "Adaptive mode mirrors www.skunkworks.africa. Shopify mode inherits the selected Horizon colour scheme."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Shopify colour scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ section.settings.theme_mode == 'shopify' }}"
+    },
     { "type": "header", "content": "Hero" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Technology commerce for modern teams" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Technology. Simplified." },
