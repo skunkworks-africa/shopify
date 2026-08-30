@@ -280,6 +280,41 @@ theme-drawer {
   text-transform: uppercase;
 }
 
+/* Policy safety override: keep merchant-authored returns contact cards readable. */
+.swa-returns-contact {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+.swa-returns-contact,
+.swa-returns-contact *,
+.swa-returns-contact h2,
+.swa-returns-contact h3,
+.swa-returns-contact p,
+.swa-returns-contact ul,
+.swa-returns-contact li,
+.swa-returns-contact strong,
+.swa-returns-contact span,
+.swa-returns-contact a,
+.swa-returns-contact .swa-returns-details,
+.swa-returns-contact .swa-returns-details li,
+.swa-returns-contact .swa-returns-details strong,
+.swa-returns-contact .swa-returns-details span,
+.swa-returns-contact .swa-returns-details a {
+  color: #ffffff !important;
+}
+
+.swa-returns-contact a {
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgb(255 255 255 / 0.72) !important;
+  text-underline-offset: 0.18em;
+}
+
+.swa-returns-contact .swa-returns-details li {
+  border-top-color: rgb(255 255 255 / 0.24) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
