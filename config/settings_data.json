@@ -9,10 +9,10 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/favicon-black.png",
+    "logo": "shopify://shop_images/shopify-logo.png",
     "logo_inverse": "shopify://shop_images/favicon-white.png",
-    "logo_height": 36,
-    "logo_height_mobile": 28,
+    "logo_height": 48,
+    "logo_height_mobile": 34,
     "favicon": "shopify://shop_images/favicon-black.png",
     "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "open_sans_n4",

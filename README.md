@@ -39,8 +39,20 @@ Tracked overlay files:
 
 - `assets/skunkworks-africa-theme.css`
 - `assets/skunkworks-africa-dark.css`
+- `assets/skunkworks-landing.css`
+- `assets/skunkworks-search.js`
 - `config/settings_data.json`
 - `layout/theme.liquid`
+- `sections/skunkworks-landing.liquid`
+- `sections/skunkworks-search-results.liquid`
+- `sections/header.liquid` (removes Horizon's duplicate hidden homepage H1)
+- `blocks/_header-logo.liquid` (routes the global logo to the corporate homepage)
+- `templates/index.json`
+- `templates/search.json`
+
+The repository is intentionally an overlay, not a complete Horizon checkout. Run
+`scripts/validate-shopify-overlay.mjs` for repository-level validation and run
+Shopify Theme Check against the complete unpublished Horizon theme before publication.
 
 ## Deployment policy
 
