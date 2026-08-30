@@ -23,6 +23,8 @@
       },
       "block_order": ["suggestion_maximo", "suggestion_zos", "suggestion_terraform", "suggestion_apptio", "suggestion_watsonx", "category_microsoft", "category_software", "category_security", "category_ai", "category_hardware", "category_training", "pathway_cloud", "pathway_security", "pathway_training", "trust_genuine", "trust_secure", "trust_support"],
       "settings": {
+        "theme_mode": "adaptive",
+        "color_scheme": "scheme-1",
         "eyebrow": "Technology commerce for modern teams",
         "heading": "Technology. Simplified.",
         "text": "<p>Discover genuine software, cloud, cybersecurity, hardware and training solutions backed by practical Skunkworks support.</p>",
