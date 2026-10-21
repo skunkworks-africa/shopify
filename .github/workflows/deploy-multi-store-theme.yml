@@ -1,0 +1,132 @@
+name: Deploy Horizon overlay to country stores
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Country store environment to deploy, or all
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - south-africa
+          - qatar
+          - nigeria
+          - australia
+          - zimbabwe
+          - malawi
+          - uganda
+          - usa
+          - portugal
+          - angola
+          - namibia
+          - cameroon
+      sync_settings_data:
+        description: Also sync config/settings_data.json (overwrites country Theme Editor settings)
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.targets.outputs.matrix }}
+    steps:
+      - id: targets
+        shell: bash
+        env:
+          TARGET: ${{ inputs.target }}
+        run: |
+          if [ "$TARGET" = "all" ]; then
+            MATRIX='["south-africa","qatar","nigeria","australia","zimbabwe","malawi","uganda","usa","portugal","angola","namibia","cameroon"]'
+          else
+            MATRIX="$(jq -nc --arg x "$TARGET" '[$x]')"
+          fi
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: ${{ matrix.environment }}
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: ${{ fromJSON(needs.plan.outputs.matrix) }}
+
+    env:
+      SHOPIFY_FLAG_FORCE: "1"
+
+    steps:
+      - name: Check out Skunkworks Horizon overlay
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Validate overlay
+        run: |
+          node scripts/validate-demo.mjs
+          node scripts/validate-shopify-overlay.mjs
+          node --check assets/skunkworks-search.js
+          jq empty templates/index.json templates/search.json
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli
+
+      - name: Verify deployment secrets
+        shell: bash
+        env:
+          STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
+          TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          THEME: ${{ secrets.SHOPIFY_THEME_ID }}
+        run: |
+          test -n "$STORE" || { echo "Missing SHOPIFY_FLAG_STORE in GitHub Environment: ${{ matrix.environment }}"; exit 1; }
+          test -n "$TOKEN" || { echo "Missing SHOPIFY_CLI_THEME_TOKEN in GitHub Environment: ${{ matrix.environment }}"; exit 1; }
+          test -n "$THEME" || { echo "Missing SHOPIFY_THEME_ID in GitHub Environment: ${{ matrix.environment }}"; exit 1; }
+
+      - name: Pull unpublished Horizon integration theme
+        shell: bash
+        env:
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+        run: |
+          THEME_DIR="$RUNNER_TEMP/horizon-theme"
+          mkdir -p "$THEME_DIR"
+          shopify theme pull             --store "$SHOPIFY_FLAG_STORE"             --password "$SHOPIFY_CLI_THEME_TOKEN"             --theme "$SHOPIFY_THEME_ID"             --path "$THEME_DIR"
+
+      - name: Apply Skunkworks overlay
+        shell: bash
+        env:
+          THEME_DIR: ${{ runner.temp }}/horizon-theme
+          SYNC_SETTINGS_DATA: ${{ inputs.sync_settings_data }}
+        run: |
+          set -euo pipefail
+          for dir in assets blocks config layout locales sections snippets templates; do
+            [ -d "$dir" ] || continue
+            while IFS= read -r file; do
+              [ -n "$file" ] || continue
+              if [ "$file" = "config/settings_data.json" ] && [ "$SYNC_SETTINGS_DATA" != "true" ]; then
+                echo "Skipping $file to preserve country-specific Theme Editor settings"
+                continue
+              fi
+              mkdir -p "$THEME_DIR/$(dirname "$file")"
+              cp "$file" "$THEME_DIR/$file"
+            done < <(git ls-files "$dir/**")
+          done
+
+      - name: Push overlay to unpublished Horizon theme
+        shell: bash
+        env:
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+        run: |
+          shopify theme push             --store "$SHOPIFY_FLAG_STORE"             --password "$SHOPIFY_CLI_THEME_TOKEN"             --theme "$SHOPIFY_THEME_ID"             --path "$RUNNER_TEMP/horizon-theme"             --nodelete             --strict             --json
