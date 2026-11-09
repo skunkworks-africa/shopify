@@ -2,8 +2,9 @@ name: Verify regional Shopify store registry
 on:
   pull_request:
     paths:
-      - "config/regional-stores.json"
+      - "registry/regional-stores.json"
       - "scripts/check-regional-stores.mjs"
+      - "scripts/check-regional-stores.test.mjs"
       - ".github/workflows/regional-store-check.yml"
   workflow_dispatch:
 permissions:
@@ -17,4 +18,6 @@ jobs:
         with:
           node-version: "22"
       - name: Validate regional store registry
-        run: node scripts/check-regional-stores.mjs
+        run: |
+          node scripts/check-regional-stores.mjs
+          node --test scripts/check-regional-stores.test.mjs

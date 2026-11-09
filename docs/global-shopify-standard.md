@@ -11,7 +11,7 @@ Status: **audit complete / production synchronization NOT enabled** (2026-10-25)
 
 ## Store audit
 
-`config/regional-stores.json` captures the 16 Shopify-connected countries, their Shopify **account identifiers** (which can differ from publicly visible primary domains), live theme families and proposed consistent naming. Existing `myshopify.com` identifiers must remain recorded even after an alias or store URL changes.
+`registry/regional-stores.json` captures the 16 Shopify-connected countries, their Shopify **account identifiers** (which can differ from publicly visible primary domains), live theme families and proposed consistent naming. Existing `myshopify.com` identifiers must remain recorded even after an alias or store URL changes.
 
 `desiredMyshopifyDomain` is a **target**, not a domain reserved or confirmed available. Shopify allows limited manual changes to `myshopify.com` names via Admin > Settings > Domains; Shopify explicitly limits changing names on development stores (see docs). Existing development-store IDs must not be assumed renameable. Existing externally-facing custom domains should remain primary.
 
@@ -31,4 +31,4 @@ Relevant docs:
 6. **Safe global automation:** only after authentication, preview QA, rollback snapshots, and regional config separation have all passed, enable per-region staging fanout on new master commits, then publish via a separate controlled release workflow.
 7. **Audit:** log theme versions, domain identifiers, the deployment SHA, test results, and rollback target for every store.
 
-The registry's `autoDeployEnabled=false` is intentional: the repository currently cannot safely sync to all live themes, and the ChatGPT Shopify connector does not permit publishing live themes. No live themes or store domains should be changed by this PR.
+The registry is deliberately stored outside the deployable Shopify overlay, so it cannot be copied into a staged theme. Its `autoDeployEnabled=false` is intentional: the repository currently cannot safely sync to all live themes, and the ChatGPT Shopify connector does not permit publishing live themes. No live themes or store domains should be changed by this PR.
